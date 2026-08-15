@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrei Sedlov — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --bg-soft: #f5f5f3;
+    --text: #222222;
+    --muted: #6b6b6b;
+    --line: #e2e2e0;
+    --accent: #3a6b5c;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  a{ color:var(--accent); }
+
+  header{
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:var(--bg); z-index:10;
+  }
+  .nav-inner{
+    max-width:900px; margin:0 auto; padding:18px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo{ font-weight:700; font-size:17px; }
+  nav ul{ list-style:none; display:flex; gap:24px; }
+  nav a{ text-decoration:none; color:var(--muted); font-size:14px; }
+  nav a:hover{ color:var(--text); }
+  @media (max-width:600px){ nav ul{ gap:14px; } nav a{ font-size:12px; } }
+
+  main{ max-width:900px; margin:0 auto; padding:0 24px; }
+
+  section{ padding:56px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  h1{ font-size:clamp(28px,5vw,38px); font-weight:700; line-height:1.25; margin-bottom:14px; }
+  h2{ font-size:22px; font-weight:700; margin-bottom:8px; }
+  .eyebrow{ color:var(--accent); font-weight:600; font-size:14px; margin-bottom:10px; }
+  .lead{ color:var(--muted); font-size:16px; max-width:60ch; margin-bottom:24px; }
+
+  /* HERO */
+  .hero{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:36px; align-items:center; padding-top:48px; }
+  @media (max-width:680px){ .hero{ grid-template-columns:1fr; } }
+  .photo{
+    aspect-ratio:4/5; background:var(--bg-soft); border:1px solid var(--line);
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    color:var(--muted); font-size:13px; text-align:center; padding:16px;
+  }
+  .btn{
+    display:inline-block; padding:11px 20px; border-radius:6px; text-decoration:none;
+    font-size:14px; font-weight:600; margin-top:6px;
+  }
+  .btn-primary{ background:var(--accent); color:#fff; }
+  .btn-primary:hover{ background:#2e564a; }
+
+  /* ABOUT */
+  .facts{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
+  @media (max-width:600px){ .facts{ grid-template-columns:1fr; } }
+  .fact{ background:var(--bg-soft); border-radius:6px; padding:14px 16px; }
+  .fact .k{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:4px; }
+  .fact .v{ font-size:14px; }
+
+  .skills{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{ background:var(--bg-soft); border-radius:16px; padding:6px 14px; font-size:13px; color:var(--muted); }
+
+  /* CARDS */
+  .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px; }
+  @media (max-width:680px){ .cards{ grid-template-columns:1fr; } }
+  .card{ border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .card-img{
+    aspect-ratio:16/10; background:var(--bg-soft); display:flex; align-items:center; justify-content:center;
+    color:var(--muted); font-size:12px; border-bottom:1px solid var(--line);
+  }
+  .card-body{ padding:16px; }
+  .card-body h3{ font-size:15px; margin-bottom:6px; }
+  .card-body p{ color:var(--muted); font-size:13px; }
+
+  /* SIMPLE 2-COL BLOCK for server */
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+  @media (max-width:680px){ .split{ grid-template-columns:1fr; } }
+  .split p{ color:var(--muted); font-size:14px; margin-bottom:12px; }
+  .split-img{
+    aspect-ratio:16/10; background:var(--bg-soft); border:1px solid var(--line); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px;
+  }
+
+  /* TIMELINE */
+  .tl-item{ padding:14px 0; border-top:1px solid var(--line); }
+  .tl-item:first-child{ border-top:none; }
+  .tl-date{ font-size:12px; color:var(--accent); font-weight:600; margin-bottom:4px; }
+  .tl-item h3{ font-size:16px; margin-bottom:4px; }
+  .tl-item p{ color:var(--muted); font-size:14px; }
+
+  /* CONTACT */
+  .contact-list{ margin-top:16px; }
+  .contact-row{
+    display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid var(--line);
+    text-decoration:none; color:var(--text); font-size:14px;
+  }
+  .contact-row:first-child{ border-top:none; }
+  .contact-row .k{ color:var(--muted); }
+
+  /* GALLERY */
+  .gallery{ display:grid; grid-template-columns:2fr 1fr 1fr; grid-auto-rows:140px; gap:8px; margin:20px 0 32px; }
+  .gallery img{ width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--line); display:block; }
+  .gallery a:first-child{ grid-row:span 2; }
+  .gallery a:first-child img{ height:100%; }
+  @media (max-width:680px){
+    .gallery{ grid-template-columns:1fr 1fr; grid-auto-rows:110px; }
+    .gallery a:first-child{ grid-column:span 2; grid-row:span 1; height:200px; }
+  }
+
+  /* PARTS TABLE */
+  table.parts{ width:100%; border-collapse:collapse; font-size:14px; margin-top:8px; }
+  table.parts th{ text-align:left; color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; padding:8px 6px; border-bottom:1px solid var(--line); }
+  table.parts td{ padding:10px 6px; border-bottom:1px solid var(--line); }
+  table.parts tr:last-child td{ border-bottom:none; }
+  table.parts td.price{ text-align:right; white-space:nowrap; }
+  .parts-note{ color:var(--muted); font-size:13px; margin-top:12px; }
+
+  /* RECEIPTS */
+  .receipts{ display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+  .receipts a{ display:block; }
+  .receipts img{ height:90px; border:1px solid var(--line); border-radius:6px; display:block; }
+
+  .lightbox-trigger{ cursor:zoom-in; transition:opacity 0.15s; }
+  .lightbox-trigger:hover{ opacity:0.85; }
+
+  /* LIGHTBOX */
+  #lightbox{
+    display:none; position:fixed; inset:0; z-index:1000;
+    background:rgba(15,15,14,0.92);
+    align-items:center; justify-content:center;
+    padding:40px;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox img{
+    max-width:100%; max-height:100%; border-radius:6px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  }
+  #lightbox-close{
+    position:fixed; top:20px; right:24px;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,0.12); color:#fff;
+    border:none; font-size:22px; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  #lightbox-close:hover{ background:rgba(255,255,255,0.22); }
+
+  footer{ text-align:center; padding:28px 24px; color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo">Andrei Sedlov</div>
+    <nav>
+      <ul>
+        <li><a href="#about">Über mich</a></li>
+        <li><a href="#builds">PC-Builds</a></li>
+        <li><a href="#server">Server</a></li>
+        <li><a href="#resultat">Resultat</a></li>
+        <li><a href="#schnupperlehren">Schnupperlehren</a></li>
+        <li><a href="#werdegang">Werdegang</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="top">
+    <div>
+      <p class="eyebrow">Bewerbung um eine Schnupperlehrstelle — Informatiker EFZ, Plattformentwicklung</p>
+      <h1>Hallo, ich bin Andrei.</h1>
+      <p class="lead">
+        Ich interessiere mich sehr für Computer, Hardware, Server und Netzwerke. Besonders spannend
+        finde ich es, technische Systeme selbstständig aufzubauen, zu konfigurieren und Probleme zu
+        lösen — deshalb möchte ich Informatiker EFZ in der Fachrichtung Plattformentwicklung werden.
+      </p>
+      <a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
+    </div>
+    <div class="photo" style="padding:0; overflow:hidden;"><img src="images/profile-photo.jpg" alt="Andrei Sedlov" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+  </section>
+
+  <section id="about">
+    <h2>Über mich</h2>
+    <p class="lead">
+      Ich heisse Andrei Sedlov und wohne in Würenlos, Aargau. Aktuell besuche ich die dritte
+      Sekundarschule in Würenlos. In meiner Freizeit beschäftige ich mich gerne mit Computern und
+      technischen Projekten — von der eigenen PC-Zusammenstellung bis zum Einrichten und Verwalten
+      eines eigenen Servers. Besonders gefällt mir, dass man bei technischen Problemen selbst nach
+      einer Lösung suchen und dabei immer etwas Neues lernen kann.
+    </p>
+    <div class="facts">
+      <div class="fact"><div class="k">Ziel</div><div class="v">Schnupperlehre / Lehrstelle Plattformentwicklung EFZ</div></div>
+      <div class="fact"><div class="k">Schule</div><div class="v">3. Sekundarschule, Würenlos</div></div>
+      <div class="fact"><div class="k">Standort</div><div class="v">Würenlos, Aargau</div></div>
+      <div class="fact"><div class="k">Sprachen</div><div class="v">Deutsch, Englisch, Russisch</div></div>
+    </div>
+    <div class="skills">
+      <span class="chip">PC-Hardware</span>
+      <span class="chip">Windows / Linux</span>
+      <span class="chip">Netzwerke</span>
+      <span class="chip">Server-Administration</span>
+      <span class="chip">Garry's Mod</span>
+    </div>
+  </section>
+
+  <section id="builds">
+    <h2>PC-Aufbauten</h2>
+    <p class="lead">Ich habe selbstständig einen eigenen PC aus verschiedenen Komponenten zusammengebaut.</p>
+    <p class="lead">Ich habe selbstständig einen eigenen PC aus verschiedenen Komponenten zusammengebaut — von der Teileauswahl über den Einbau bis zum fertigen System.</p>
+
+    <div class="gallery">
+      <img src="images/build-full.jpg" alt="Fertig zusammengebauter PC" class="lightbox-trigger" onclick="openLightbox('images/build-full.jpg')">
+      <img src="images/build-open.jpeg" alt="Offenes Gehäuse während des Aufbaus" class="lightbox-trigger" onclick="openLightbox('images/build-open.jpeg')">
+      <img src="images/build-cpu.jpeg" alt="CPU-Einbau auf dem Mainboard" class="lightbox-trigger" onclick="openLightbox('images/build-cpu.jpeg')">
+      <img src="images/build-ram.jpeg" alt="RAM-Einbau" class="lightbox-trigger" onclick="openLightbox('images/build-ram.jpeg')">
+      <img src="images/build-parts1.jpeg" alt="Alle Komponenten vor dem Einbau" class="lightbox-trigger" onclick="openLightbox('images/build-parts1.jpeg')">
+      <img src="images/build-unboxing-mainboard.jpeg" alt="Auspacken des Mainboards" class="lightbox-trigger" onclick="openLightbox('images/build-unboxing-mainboard.jpeg')">
+      <img src="images/build-cable-management.jpeg" alt="Kabelmanagement im Gehäuse" class="lightbox-trigger" onclick="openLightbox('images/build-cable-management.jpeg')">
+      <img src="images/build-pcie-cables.jpeg" alt="PCIe-Stromkabel für die Grafikkarte" class="lightbox-trigger" onclick="openLightbox('images/build-pcie-cables.jpeg')">
+      <img src="images/build-case-view.jpeg" alt="Blick ins fertige Gehäuse" class="lightbox-trigger" onclick="openLightbox('images/build-case-view.jpeg')">
+      <img src="images/build-connector1.jpeg" alt="Anschluss der Frontpanel-Kabel" class="lightbox-trigger" onclick="openLightbox('images/build-connector1.jpeg')">
+      <img src="images/build-connector2.jpeg" alt="Anschluss weiterer Kabel am Mainboard" class="lightbox-trigger" onclick="openLightbox('images/build-connector2.jpeg')">
+      <img src="images/build-mainboard-headers.jpeg" alt="USB- und Frontpanel-Header auf dem Mainboard" class="lightbox-trigger" onclick="openLightbox('images/build-mainboard-headers.jpeg')">
+    </div>
+
+    <h3 style="font-size:16px; margin-bottom:10px;">Komponenten</h3>
+    <table class="parts">
+      <tr><th>Teil</th><th>Modell</th><th class="price">Preis</th></tr>
+      <tr><td>CPU</td><td>AMD Ryzen 7 7800X3D</td><td class="price">320.–</td></tr>
+      <tr><td>GPU</td><td>Gigabyte GeForce RTX 5070 Ti Aero OC, 16 GB</td><td class="price">811.–</td></tr>
+      <tr><td>Mainboard</td><td>Gigabyte X870E Aorus Pro Ice</td><td class="price">279.–</td></tr>
+      <tr><td>RAM</td><td>Kingston Fury 64 GB DDR5 6000 MT/s (2×32 GB)</td><td class="price">224.–</td></tr>
+      <tr><td>SSD</td><td>Samsung 990 Pro 2 TB, M.2</td><td class="price">202.–</td></tr>
+      <tr><td>Gehäuse</td><td>NZXT H9 Flow</td><td class="price">143.–</td></tr>
+      <tr><td>Netzteil</td><td>Corsair RM1000e, 1000 W</td><td class="price">141.–</td></tr>
+      <tr><td>CPU-Kühler</td><td>Deepcool LM360 (AIO Wasserkühlung)</td><td class="price">109.–</td></tr>
+      <tr><td>Lüfter</td><td>Deepcool FL12R, 3× 120 mm</td><td class="price">57.90</td></tr>
+    </table>
+    <p class="parts-note">Alle Komponenten wurden einzeln bestellt und selbst zusammengebaut — Kompatibilität (Sockel AM5, DDR5, PCIe 5.0) habe ich vorher selbst geprüft.</p>
+
+    <h3 style="font-size:16px; margin:28px 0 10px;">Bestellbestätigungen als Nachweis</h3>
+    <div class="receipts">
+      <img src="images/receipt-cpu.png" alt="Bestellbestätigung CPU" class="lightbox-trigger" onclick="openLightbox('images/receipt-cpu.png')">
+      <img src="images/receipt-gpu.png" alt="Bestellbestätigung Grafikkarte" class="lightbox-trigger" onclick="openLightbox('images/receipt-gpu.png')">
+      <img src="images/receipt-ram-board.png" alt="Bestellbestätigung RAM und Mainboard" class="lightbox-trigger" onclick="openLightbox('images/receipt-ram-board.png')">
+      <img src="images/receipt-case.png" alt="Bestellbestätigung Gehäuse" class="lightbox-trigger" onclick="openLightbox('images/receipt-case.png')">
+      <img src="images/receipt-ssd.png" alt="Bestellbestätigung SSD" class="lightbox-trigger" onclick="openLightbox('images/receipt-ssd.png')">
+      <img src="images/receipt-psu.png" alt="Bestellbestätigung Netzteil" class="lightbox-trigger" onclick="openLightbox('images/receipt-psu.png')">
+      <img src="images/receipt-cooler-fans.png" alt="Bestellbestätigung Kühler und Lüfter" class="lightbox-trigger" onclick="openLightbox('images/receipt-cooler-fans.png')">
+    </div>
+  </section>
+
+  <section id="server">
+    <h2>Eigener Garry's Mod Server</h2>
+    <p class="lead">Ich habe einen eigenen Garry's Mod Server eingerichtet und konfiguriert — den «Metrostroi»-Server, ein Sandbox-Gamemode rund um eine Moskauer-Metro-Simulation.</p>
+
+    <div class="gallery" style="grid-template-columns:1fr 1fr 1fr; grid-auto-rows:180px;">
+      <img src="images/server-console-start.png" alt="Serverkonsole beim Start mit Startparametern" class="lightbox-trigger" onclick="openLightbox('images/server-console-start.png')">
+      <img src="images/server-download-addons.png" alt="Server lädt Workshop-Addons herunter" class="lightbox-trigger" onclick="openLightbox('images/server-download-addons.png')">
+      <img src="images/server-files.png" alt="Serververzeichnis mit Konfigurationsdateien" class="lightbox-trigger" onclick="openLightbox('images/server-files.png')">
+    </div>
+
+    <div class="split">
+      <div>
+        <p>
+          Dadurch konnte ich erste Erfahrungen mit Servern, Konfigurationen und der selbstständigen
+          Fehlersuche sammeln. Ich habe den Server über die Kommandozeile mit eigenen Startparametern
+          konfiguriert (z. B. maxplayers, Gamemode, Karte und eine eigene Workshop-Addon-Collection
+          für automatisches Herunterladen der Mods).
+        </p>
+        <p>
+          Besonders gefällt mir, dass man bei technischen Problemen selbst nach einer Lösung suchen
+          und dabei immer etwas Neues lernen kann — zum Beispiel beim Beheben von fehlgeschlagenen
+          Addon-Downloads oder unbekannten Konfigurationsbefehlen.
+        </p>
+        <div class="facts" style="margin-top:16px;">
+          <div class="fact"><div class="k">Gamemode</div><div class="v">Sandbox</div></div>
+          <div class="fact"><div class="k">Karte</div><div class="v">gm_metro_mosldl_v1</div></div>
+          <div class="fact"><div class="k">Max. Spieler</div><div class="v">20</div></div>
+          <div class="fact"><div class="k">Addons</div><div class="v">Eigene Workshop-Collection</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultat">
+    <h2>Resultat</h2>
+    <p class="lead">Der fertig zusammengebaute PC im Betrieb — mit RGB-Beleuchtung und Live-Temperaturanzeige.</p>
+    <div class="gallery" style="grid-template-columns:1fr 1fr 1fr; grid-auto-rows:220px;">
+      <img src="images/result-1.jpg" alt="Fertiger PC im Betrieb, Innenansicht mit RGB-Beleuchtung" class="lightbox-trigger" onclick="openLightbox('images/result-1.jpg')">
+      <img src="images/result-2.jpg" alt="PC auf dem Schreibtisch mit beleuchtetem Gehäuse" class="lightbox-trigger" onclick="openLightbox('images/result-2.jpg')">
+      <img src="images/result-3.jpg" alt="Nahaufnahme der Kühlung mit Live-Temperaturanzeige" class="lightbox-trigger" onclick="openLightbox('images/result-3.jpg')">
+    </div>
+  </section>
+
+  <section id="schnupperlehren">
+    <h2>Schnupperlehren</h2>
+    <p class="lead">Ich habe bereits mehrere Schnuppertage in der Informatik absolviert, um verschiedene Fachrichtungen und Firmen kennenzulernen.</p>
+
+    <div class="tl-item">
+      <div class="tl-date">09.12.2025</div>
+      <h3>Stadler Rail, Bussnang</h3>
+      <p>Schnupperlehre als Informatiker Fachrichtung Plattformentwicklung. Der Schnupperlehrbericht
+      bestätigt unter anderem eine gute körperliche und geistige Eignung für den Beruf.</p>
+      <a href="images/schnupper-stadler.pdf" target="_blank" style="font-size:13px;">Schnupperlehrbericht öffnen (PDF) →</a>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">31.03.2026</div>
+      <h3>BSI Business Systems Integration AG, Baden</h3>
+      <p>Schnuppertag mit Grundlagen der Programmiersprache Python inkl. Übungen sowie
+      Programmierung eines Thymio-Roboters in Gruppenarbeit, inklusive Rennen gegen andere
+      Teilnehmende.</p>
+      <img src="images/schnupper-bsi.jpg" alt="Bestätigung Schnuppertag BSI" class="lightbox-trigger" style="height:90px; border:1px solid var(--line); border-radius:6px; margin-top:8px;" onclick="openLightbox('images/schnupper-bsi.jpg')">
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">08.05.2026</div>
+      <h3>Komax AG, Dierikon</h3>
+      <p>Schnupperlehrtag bei Komax mit Bewertung der Arbeits-, Methoden- und Sozialkompetenz durch
+      die Betreuung vor Ort.</p>
+      <div style="display:flex; gap:10px; margin-top:8px;">
+        <img src="images/schnupper-komax-1.jpg" alt="Schnupperlehrbewertung Komax Seite 1" class="lightbox-trigger" style="height:90px; border:1px solid var(--line); border-radius:6px;" onclick="openLightbox('images/schnupper-komax-1.jpg')">
+        <img src="images/schnupper-komax-2.jpg" alt="Schnupperlehrbewertung Komax Seite 2" class="lightbox-trigger" style="height:90px; border:1px solid var(--line); border-radius:6px;" onclick="openLightbox('images/schnupper-komax-2.jpg')">
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">13.03.2026</div>
+      <h3>Roche, Basel/Kaiseraugst</h3>
+      <p>Schnupperlehr beim Roche, Basel Keiseraugst.</p>
+      <img src="images/schnupper-roche.jpeg" alt="Bestätigung und Einladung Roche" class="lightbox-trigger" style="height:90px; border:1px solid var(--line); border-radius:6px; margin-top:8px;" onclick="openLightbox('images/schnupper-roche.jpeg')">
+    </div>
+  </section>
+
+  <section id="werdegang">
+    <h2>Warum Plattformentwicklung</h2>
+    <div class="tl-item">
+      <div class="tl-date">Bewerbung</div>
+      <h3>Lehrstelle als Informatiker EFZ, Plattformentwicklung</h3>
+      <p>Ich bewerbe mich um eine Lehrstelle als Informatiker EFZ, Fachrichtung Plattformentwicklung
+      — unter anderem gestützt auf meine bisherigen Schnuppertage (siehe oben).</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Freizeit</div>
+      <h3>Eigener PC-Aufbau</h3>
+      <p>Selbstständig einen PC aus einzelnen Komponenten zusammengebaut — inklusive Auswahl und
+      Kompatibilitätsprüfung der Hardware.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Freizeit</div>
+      <h3>Eigener Garry's Mod Server</h3>
+      <p>Server eingerichtet und konfiguriert, dabei erste Erfahrungen mit Serveradministration
+      und Fehlersuche gesammelt.</p>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <p class="lead">Ich freue mich über eine Nachricht.</p>
+    <div class="contact-list">
+      <a class="contact-row" href="mailto:andrei.sedlov@hotmail.com"><span class="k">E-Mail</span><span>andrei.sedlov@hotmail.com</span></a>
+      <a class="contact-row" href="tel:+41799068128"><span class="k">Telefon</span><span>079 906 81 28</span></a>
+      <a class="contact-row" href="#"><span class="k">Adresse</span><span>Feldstrasse 8, 5436 Würenlos</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © Andrei Sedlov, 2026<br>
+  <span style="font-size:11px; opacity:0.7;">Diese Website wurde mit Unterstützung von KI-Tools erstellt.</span>
+</footer>
+
+<div id="lightbox" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src){
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e){
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-img').src = '';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeLightbox(e);
+  });
+</script>
+
+
+</body>
+</html>
